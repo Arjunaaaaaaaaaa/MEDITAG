@@ -1,144 +1,108 @@
 # MediTag
 
-**MediTag** is a hackathon prototype for a digital health identity and medical-record system that helps patients and healthcare professionals access important medical information through a unique MediTag QR.
+## Digital Emergency Health Record & Medical Identity System
+
+MediTag is a digital health-record prototype designed to make essential patient medical information easier to access during emergencies.
+
+The system uses a unique MediTag identifier and QR code to connect a patient with their digital medical record. The QR code itself does not contain medical information. It contains only the patient's MediTag token.
+
+The project focuses on improving emergency access to important information such as blood group, allergies, medical conditions, medications, medical history, and doctor advice.
 
 ---
 
-# Project Status
+## 1. Problem Statement
 
-**Current stage: Review 2 Prototype**
+Medical information is often scattered across hospitals, clinics, paper records, and different healthcare providers.
 
-MediTag has progressed from the initial frontend prototype toward a more functional emergency-access and authentication workflow.
+During an emergency, important information may not be immediately available to the treating team. This can create difficulties such as:
 
-The current prototype demonstrates:
+- Missing allergy information
+- Unknown medications
+- Incomplete medical history
+- Difficulty identifying the patient
+- Delays in accessing previous records
+- Patients being unable to clearly communicate their medical history
+- Lack of a simple mechanism for sharing essential emergency information
 
-- Patient and doctor workflows
-- MediTag QR generation and scanning
-- Patient medical-record display
-- Doctor-side record updates
-- Access and update logging
-- Tamil voice-based care summary
-- Real email-based OTP for emergency access
-- Emergency verification before accessing emergency information
-
-The application is still a hackathon prototype and does not use production-grade healthcare infrastructure.
+MediTag aims to provide a centralized digital record prototype that can be accessed through a patient-specific identifier and QR code.
 
 ---
 
-# Problem
+## 2. Proposed Solution
 
-Patient medical information is often scattered across hospitals, clinics, paper reports and prescriptions.
+MediTag provides a digital medical identity for each patient.
 
-This can make it difficult for healthcare professionals to quickly understand a patient's:
+A patient can have:
 
-- Previous medical history
+- A unique MediTag ID
+- A unique QR/token
+- Personal information
+- Blood group
+- Medical conditions
 - Allergies
 - Current medications
-- Medical conditions
-- Emergency information
+- Medical history
+- Emergency contact information
+- Doctor advice
+- Tamil patient-care summary
+- Access history
+- Update history
 
-Patients may also find it difficult to remember or explain their complete medical history and may not always understand medical advice after a consultation.
-
-MediTag aims to make important patient information easier to access while providing a foundation for secure, patient-controlled medical records.
-
----
-
-# Proposed Solution
-
-MediTag provides each patient with a unique digital health identity and QR code.
-
-The QR code contains only a **MediTag identifier/token**, not the patient's medical information.
-
-The demonstrated workflow is:
-
-**Patient → MediTag QR → Doctor/Clinician → Patient Record**
-
-For emergency situations, MediTag adds an additional verification step:
-
-**MediTag QR → Emergency Access → Email OTP Verification → Emergency Record**
-
-The long-term goal is to connect this workflow to a secure backend, database, verified healthcare-professional authentication and patient-controlled consent management.
+The QR code acts as a pointer to the patient's MediTag identity rather than storing medical information directly.
 
 ---
 
-# Main Features Demonstrated
+## 3. Key Features
 
-## 1. Landing Page
+### Patient Registration
 
-The application provides separate workflows for:
-
-- Patient Login
-- Doctor Login
-- New Patient Registration
-- Emergency Access
-
----
-
-## 2. New Patient Registration
-
-The registration form collects:
+Patients can create a MediTag profile containing information such as:
 
 - Name
-- Date of Birth
-- Blood Group
-- Phone Number
-- Emergency Contact
-- Medical Conditions
+- Date of birth
+- Blood group
+- Phone number
+- Email
+- Emergency contact
+- Medical conditions
 - Allergies
-- Current Medications
-- Medical History
-
-After registration, a MediTag patient profile is created locally for the prototype.
-
-The application can generate a unique MediTag token for the patient.
+- Medications
+- Medical history
 
 ---
 
-## 3. Patient Login
+### Patient Login
 
-The patient workflow allows a patient to access their MediTag profile.
+The patient can log in using their MediTag ID.
 
-After login, the patient can:
+The current prototype includes a demonstration login flow.
 
-- View personal information
-- View medical information
-- View their MediTag QR
-- Download/print the QR
-- View medical history
-- View doctor-updated information
-- View access history
-- Listen to the Tamil care summary
-
-The current patient authentication workflow is still being developed further toward complete backend-based authentication.
+After login, the patient can view their medical profile and other MediTag information.
 
 ---
 
-## 4. Doctor Login
+### Digital Medical Profile
 
-The prototype provides a separate clinician workflow.
+The patient dashboard displays important information including:
 
-After doctor authentication, the doctor can:
+- Personal information
+- Blood group
+- Medical conditions
+- Allergies
+- Medications
+- Medical history
+- Doctor advice
+- Emergency contact
 
-- Search for a patient
-- Identify a patient using the MediTag token
-- View medical history
-- View allergies
-- View medications
-- View medical conditions
-- Add consultation notes
-- Update medications
-- Update allergies and conditions
-- Update doctor advice
-- Update the Tamil care summary
-- Save clinical updates
-
-Clinical updates are recorded in the prototype audit log with timestamps.
+This provides a single view of important medical information.
 
 ---
 
-# 5. QR-Based Patient Identification
+### QR Code Generation
 
-The MediTag QR contains a token in the following format:
+Each patient has a MediTag token.
+
+Example:
 
 ```text
-MEDI-TAG:<patient-token>
+MEDI-TAG:demo-ananya-1001
