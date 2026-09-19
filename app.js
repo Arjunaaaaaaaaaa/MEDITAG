@@ -11,8 +11,8 @@ const DEMO_PATIENT={
   blood:"O+",
   phone:"+91 98765 43210",
 
-  email:"mridulagopal.25cse@cambridge.edu.in",
-  emergencyContactEmail:"mridulagopal.25cse@cambridge.edu.in",
+  email:"PATIENT_EMAIL",
+  emergencyContactEmail:"EMERGENCY_EMAIL",
 
   emergency:"Rahul Rao — +91 98765 43210",
   emergencyNumber:"+91 98765 43210",
