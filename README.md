@@ -223,29 +223,6 @@ QR camera scanning and browser speech features may require browser permissions a
 
 ---
 
-# Future Enhancements
-
-The current prototype demonstrates the core MediTag workflow. The following enhancements are planned for the next stages of development:
-
-* Secure backend and cloud database integration
-* Real-time OTP and SMS authentication
-* Verified healthcare-professional accounts
-* Secure patient consent and access-control management
-* Patient-controlled access revocation
-* Immutable medical-record versioning
-* Enhanced audit trails for patient-record access and updates
-* Medication and allergy interaction alerts
-* AI-assisted medical summarization
-* AI-assisted test and clinical-information suggestions
-* Additional regional-language support
-* Hospital and diagnostic-centre integration
-* Production-level encryption and security
-* Scalable deployment for real-world healthcare environments
-
-AI-based features will be designed as **assistive tools for healthcare professionals**, with final medical decisions remaining with qualified healthcare professionals.
-
----
-
 # Future Development
 
 The next stages of MediTag will focus on:
