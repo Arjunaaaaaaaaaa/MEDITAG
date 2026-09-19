@@ -1,86 +1,125 @@
-# MediTag v3
+# MediTag
 
-Updated hackathon prototype implementing the requested MediTag v3 flow.
+**MediTag** is a hackathon prototype for a digital health identity and medical-record system that helps patients and healthcare professionals access important medical information through a unique MediTag QR.
 
-## Main flow
+## Project Status
 
-### Landing page
-- Patient Login
-- Doctor Login
-- New Patient Registration
+**Current stage: Review 1 Prototype**
 
-### New Patient Registration
-Fields:
-- Name
-- DOB
-- Blood group
-- Phone
-- Emergency contact
-- Medical conditions
-- Allergies
-- Current medications
-- Medical history
+The current version demonstrates the core MediTag workflow locally. Some components such as authentication, OTP delivery, database storage, AI assistance and production-level security are currently simulated or planned for future development.
 
-After registration:
-> Your MediTag profile has been created.
+---
 
-The patient dashboard intentionally has **no Edit button** for medical information.
+## Problem
 
-### Patient Login
-- Phone / Patient ID
-- Patient OTP: `111222`
+Patient medical information is often scattered across hospitals, clinics, paper reports and prescriptions.
 
-Patient can:
-- View complete profile
-- View QR
-- Download/print QR
-- View who accessed the record
-- View doctor-updated information
-- Listen to the care summary in Tamil
+This can make it difficult for healthcare professionals to quickly understand a patient's:
 
-### Doctor Login
-- Doctor ID
-- Doctor password/verification: `MEDI123`
-- Doctor OTP: `333444`
+* Previous medical history
+* Allergies
+* Current medications
+* Medical conditions
+* Emergency information
 
-Doctor dashboard:
-- Scan MediTag QR
-- Find patient by token
-- View history, allergies, medications and conditions
-- Update clinical information
-- Add consultation notes
-- Update medications/allergies/conditions
-- Save changes
-- Audit entries with timestamp
+Patients may also find it difficult to remember or explain their complete medical history and may not always understand medical advice after a consultation.
 
-### QR
-QR contains:
-`MEDI-TAG:<patient-token>`
+MediTag aims to make important patient information easier to access while providing a foundation for secure, patient-controlled medical records.
 
-It does **not** contain medical information.
+---
 
-### Tamil
-English + Tamil are intentionally used for the hackathon. The doctor advice is stored with a Tamil care-summary field, and the patient can press **Listen in Tamil** using browser speech synthesis (`ta-IN`).
+## Proposed Solution
 
-## Demo data
-The app has a synthetic demo patient:
-- Patient ID: `MT-1001`
-- Name: Ananya Rao
-- Token: `demo-ananya-1001`
+MediTag provides each patient with a unique digital health identity and QR code.
 
-If the browser has no registered patient yet, this demo patient is used automatically.
+The QR code contains only a **MediTag identifier/token**, not the patient's medical information.
 
-## Run
-Open the folder in VS Code and use Live Server, or:
+The prototype demonstrates separate patient and doctor workflows:
 
-```bash
-python -m http.server 5500
-```
+**Patient → MediTag QR → Doctor/Clinician → Patient Record**
 
-Then open:
-`http://localhost:5500`
+The long-term goal is to connect this workflow to a secure backend with verified authentication, consent management and real-time healthcare services.
 
-QR camera scanning and browser speech may require HTTPS/localhost and browser permissions.
+---
 
-## Prototype limitation
-This remains a frontend/localStorage hackathon prototype. Authentication, database persistence, encryption, secure OTP delivery, verified doctor identity, and production-grade access control must be implemented on a secure backend before real patient data is used.
+# Main Features Demonstrated
+
+## 1. Landing Page
+
+The application provides three main options:
+
+* Patient Login
+* Doctor Login
+* New Patient Registration
+
+---
+
+## 2. New Patient Registration
+
+The registration form collects:
+
+* Name
+* Date of Birth
+* Blood Group
+* Phone Number
+* Emergency Contact
+* Medical Conditions
+* Allergies
+* Current Medications
+* Medical History
+
+After successful registration, the application displays:
+
+> **Your MediTag profile has been created.**
+
+The patient dashboard does not provide an edit option for the stored medical information in the current prototype.
+
+---
+
+## 3. Patient Login
+
+The prototype provides a patient login flow using:
+
+* Phone / Patient ID
+* Demo OTP: `111222`
+
+After login, the patient can:
+
+* View their complete profile
+* View their MediTag QR
+* Download/print the QR
+* View access information
+* View doctor-updated information
+* Listen to the care summary in Tamil
+
+---
+
+## 4. Doctor Login
+
+The prototype provides a separate clinician login flow.
+
+Demo credentials:
+
+* Doctor ID: any demo doctor ID
+* Password/verification: `MEDI123`
+* Demo OTP: `333444`
+
+After login, the doctor can:
+
+* Scan a MediTag QR
+* Identify a patient using the MediTag token
+* View medical history
+* View allergies
+* View medications
+* View medical conditions
+* Add consultation notes
+* Update medications
+* Update allergies and conditions
+* Save clinical updates
+* View audit entries with timestamps
+
+---
+
+## 5. QR-Based Patient Identification
+
+The MediTag QR contains a to
