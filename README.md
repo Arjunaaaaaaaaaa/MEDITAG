@@ -122,4 +122,153 @@ After login, the doctor can:
 
 ## 5. QR-Based Patient Identification
 
-The MediTag QR contains a to
+The MediTag QR contains a token in the following format:
+
+```text
+MEDI-TAG:<patient-token>
+```
+
+For example:
+
+```text
+MEDI-TAG:demo-ananya-1001
+```
+
+The QR does **not** contain the patient's medical history, allergies, medications or other medical information.
+
+The token is used by the prototype to identify the corresponding patient record.
+
+---
+
+## 6. Access and Update Logging
+
+The prototype demonstrates logging of access and clinical updates.
+
+For example:
+
+```text
+Dr. Kumar updated medication
+19 Sep 2026, 2:42 PM
+```
+
+This provides the foundation for a future audit trail in which patient access and record changes can be tracked.
+
+---
+
+## 7. Tamil Care Summary
+
+The current hackathon prototype focuses specifically on **English and Tamil**.
+
+Patients can use:
+
+**Listen in Tamil**
+
+to hear their care summary using the browser's Web Speech API with Tamil (`ta-IN`) speech synthesis.
+
+The purpose is to make medical information easier for patients to understand after a consultation.
+
+---
+
+# Demo Patient
+
+The application contains synthetic demo data for demonstration purposes.
+
+**Patient ID:** `MT-1001`
+**Name:** Ananya Rao
+**Token:** `demo-ananya-1001`
+
+If no patient has been registered in the browser yet, the demo patient can be used automatically.
+
+> All demo patient information is synthetic and should not be replaced with real patient information in this prototype.
+
+---
+
+# Technology Stack
+
+The current prototype uses:
+
+* **HTML5**
+* **CSS3**
+* **Vanilla JavaScript**
+* **QRCode.js** — QR generation
+* **html5-qrcode** — QR scanning
+* **localStorage** — prototype data persistence
+* **sessionStorage** — temporary session data
+* **Web Speech API** — Tamil voice playback
+* **VS Code Live Server** — local development
+
+---
+
+# Running the Project
+
+### Option 1 — VS Code Live Server
+
+Open the project folder in VS Code and run it using **Live Server**.
+
+### Option 2 — Python HTTP Server
+
+Run:
+
+```bash
+python -m http.server 5500
+```
+
+Then open:
+
+```text
+http://localhost:5500
+```
+
+QR camera scanning and browser speech features may require browser permissions and a secure context such as `localhost` or HTTPS.
+
+---
+
+# Future Enhancements
+
+The current prototype demonstrates the core MediTag workflow. The following enhancements are planned for the next stages of development:
+
+* Secure backend and cloud database integration
+* Real-time OTP and SMS authentication
+* Verified healthcare-professional accounts
+* Secure patient consent and access-control management
+* Patient-controlled access revocation
+* Immutable medical-record versioning
+* Enhanced audit trails for patient-record access and updates
+* Medication and allergy interaction alerts
+* AI-assisted medical summarization
+* AI-assisted test and clinical-information suggestions
+* Additional regional-language support
+* Hospital and diagnostic-centre integration
+* Production-level encryption and security
+* Scalable deployment for real-world healthcare environments
+
+AI-based features will be designed as **assistive tools for healthcare professionals**, with final medical decisions remaining with qualified healthcare professionals.
+
+---
+
+# Future Development
+
+The next stages of MediTag will focus on:
+
+1. Secure backend and database integration
+2. Real OTP authentication
+3. Verified healthcare-professional accounts
+4. Patient consent and access control
+5. Record versioning and stronger audit trails
+6. Medication and allergy safety checks
+7. AI-assisted medical summarization
+8. Additional regional-language support
+9. Hospital and diagnostic-centre integration
+10. Production-level security and privacy controls
+
+AI features are intended to **assist healthcare professionals rather than replace clinical decision-making**.
+
+---
+
+## Disclaimer
+
+MediTag is currently a **hackathon prototype for demonstration and evaluation**.
+
+It must not be used to store, process or make medical decisions using real patient data.
+
+Production deployment would require appropriate security, privacy, authentication, infrastructure and healthcare compliance measures.
