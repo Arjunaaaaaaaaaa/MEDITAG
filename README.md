@@ -108,7 +108,7 @@ Example:
 MEDI-TAG:demo-ananya-1001
 ```
 
-###QR Code Scanning
+### QR Code Scanning
 
 The emergency-access section includes QR scanning functionality using html5-qrcode.
 
@@ -156,7 +156,7 @@ Access the emergency medical record
 
 The emergency OTP functionality is connected to the backend email service.
 
-##Email OTP Verification
+### Email OTP Verification
 
 The emergency-access workflow uses a Node.js/Express backend with Resend for email delivery.
 
@@ -172,7 +172,7 @@ The current prototype uses a 15-minute OTP validity period.
 
 The OTP is generated and handled by the backend rather than being generated only in frontend JavaScript.
 
-###Access Logging
+### Access Logging
 
 MediTag records access-related events in the prototype.
 
@@ -185,7 +185,7 @@ Record updates
 
 This provides an audit-style history of interactions with the medical record.
 
-###Doctor Advice
+### Doctor Advice
 
 Doctors can provide patient-specific advice through the doctor dashboard.
 
@@ -193,7 +193,7 @@ The patient can then view this advice from the patient dashboard.
 
 The prototype also supports a separate Tamil care summary.
 
-###Tamil Care Summary
+### Tamil Care Summary
 
 MediTag includes a Tamil-language care summary to make doctor instructions easier for patients to understand.
 
@@ -226,7 +226,7 @@ QR Code Generation
    ↓
 Patient carries/shares QR
 
-###Emergency Workflow
+### Emergency Workflow
 
 Emergency Responder
         ↓
@@ -242,7 +242,7 @@ OTP Verification
         ↓
 Emergency Medical Record
 
-###Doctor Workflow
+### Doctor Workflow
 Doctor Login
      ↓
 Doctor Dashboard
@@ -257,7 +257,7 @@ Tamil Care Summary
      ↓
 Access/Update Log
 
-##5. QR Code Format
+## 5. QR Code Format
 
 MediTag uses a token-based QR format.
 
@@ -277,7 +277,7 @@ Doctor notes
 
 This design helps prevent sensitive medical information from being directly exposed through the QR code.
 
-#6. Current Demo Patient
+## 6. Current Demo Patient
 
 The prototype includes a demonstration patient for testing.
 
@@ -304,7 +304,7 @@ Salbutamol inhaler
 
 The demonstration patient is used for testing the prototype workflow.
 
-##7. Technology Stack
+## 7. Technology Stack
 Frontend
 HTML5
 CSS3
@@ -325,14 +325,11 @@ Node.js Crypto module
 Storage
 
 The current prototype primarily uses browser storage for patient records and logs.
-
 The backend currently handles emergency OTP generation and verification.
 
-
-Current Implementation Status
+### Current Implementation Status
 
 The project is currently in the Post-Review 2 / Iteration stage.
-
 Implemented
 MediTag landing page
 Patient login interface
@@ -355,12 +352,10 @@ Prototype / Demonstration Components
 
 Some authentication and patient-management functionality is still implemented as a prototype rather than as a production healthcare system.
 
-##Security Considerations
+### Security Considerations
 
 MediTag is a healthcare-related prototype and therefore handles information that can be sensitive.
-
 The current prototype should not be considered a production medical-record system.
-
 Important future security requirements include:
 
 Encryption in transit
@@ -376,12 +371,9 @@ Secure API endpoints
 Database security
 Backup and recovery
 Privacy and compliance requirements
-
 The QR code should continue to contain only an identifier/token rather than the patient's medical information.
 
-Future Scope
-
-##Possible future improvements include:
+### Possible future improvements include:
 
 Cloud database
 Secure patient accounts
@@ -401,10 +393,9 @@ Secure API architecture
 Mobile application
 Hospital/EHR integration
 
-##Limitations
+### Limitations
 
 MediTag is currently a prototype developed for demonstration and hackathon purposes.
-
 It is not intended to replace:
 
 Hospital information systems
@@ -415,19 +406,30 @@ Clinical decision-making
 
 The AI-related and automated features, where applicable, should be treated as assistance rather than medical diagnosis or treatment recommendations.
 
-##Disclaimer
+## Known Issues Identified During Review 2
+
+During Review 2 testing, the QR workflow showed an intermittent issue where some downloaded MediTag QR codes resulted in:
+
+- "Patient not found"
+- "Invalid QR"
+
+The QR workflow had worked during earlier testing, so further debugging is required to determine whether the issue is related to QR generation, token parsing, token lookup, or browser-based patient storage.
+
+The current prototype also stores patient records using browser `localStorage`. Because browser storage is tied to the browser and application origin, records may not appear when the application is opened using a different browser, browser profile, host, or port.
+
+These limitations are planned to be addressed by moving patient records to a centralized backend/database and improving the QR-to-patient lookup workflow.
+
+### Disclaimer
+
 MediTag is a student/hackathon prototype intended to demonstrate a concept for digital emergency medical identity and record access.
 It is not a certified medical device or production healthcare information system.
 Medical decisions should always be made by qualified healthcare professionals using appropriate clinical information.
 
-##Project Status
+### Project Status
 
 Current Stage: Post-Review 2 / Iteration
-
 The core MediTag prototype and emergency email OTP workflow have been demonstrated.
-
 The next major development priorities are:
-
 Reliable QR-to-patient lookup
 Backend/database-based patient records
 Secure patient authentication
@@ -435,5 +437,5 @@ Improved doctor authentication
 Stronger access control and audit logging
 Production-level security
 
-##MediTag Project Team
+### MediTag Project Team
 Developed as a hackathon/project prototype for demonstrating a digital emergency medical record and patient identity system.
