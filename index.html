@@ -46,6 +46,7 @@
     <label>Blood group<select id="regBlood" required><option value="">Select</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label>
     <label>Phone<input id="regPhone" type="tel" placeholder="+91 98765 43210" required></label>
     <label>Emergency contact<input id="regEmergency" required placeholder="Name — phone number"></label>
+    <label>Additional emergency number<input id="regEmergencyNumber" type="tel" required placeholder="+91 91234 56789"></label>
     <label class="wide">Medical conditions<textarea id="regConditions" rows="3" placeholder="e.g. Asthma"></textarea></label>
     <label class="wide">Allergies<textarea id="regAllergies" rows="3" placeholder="e.g. Penicillin"></textarea></label>
     <label class="wide">Current medications<textarea id="regMedications" rows="3" placeholder="e.g. Salbutamol inhaler"></textarea></label>
@@ -100,7 +101,10 @@
 <section id="patientDashboard" class="view">
   <div class="dashHead">
     <div><span class="eyebrow">PATIENT DASHBOARD</span><h1 id="patientWelcome">Welcome</h1><p id="patientMeta" class="muted"></p></div>
-    <button class="secondary" onclick="logout()">Log out</button>
+    <div class="actions">
+      <button class="danger" onclick="openEmergencySOS()">🚨 Emergency SOS</button>
+      <button class="secondary" onclick="logout()">Log out</button>
+    </div>
   </div>
   <nav class="tabs">
     <button class="tab active" data-tab="patientProfile">My Profile</button>
@@ -204,6 +208,35 @@
 </section>
 </main>
 <footer>MediTag v3 prototype • Synthetic demo data • Not for real clinical use</footer>
+</div>
+
+<!-- EMERGENCY SOS MODAL -->
+<div id="emergencyOverlay" class="overlay hidden">
+  <div class="card emergencyModal">
+    <span class="eyebrow">EMERGENCY SOS</span>
+    <h2>Alert your emergency contact</h2>
+    <p id="emergencyIntro" class="muted"></p>
+
+    <div id="emergencyStep1">
+      <button class="danger full" onclick="sendEmergencyOtp()">📲 Send OTP to emergency number</button>
+    </div>
+
+    <div id="emergencyStep2" class="hidden">
+      <label>Enter OTP sent to emergency number<input id="emergencyOtpInput" inputmode="numeric" maxlength="6" placeholder="6-digit OTP"></label>
+      <button class="danger full" onclick="verifyEmergencyOtp()">✅ Verify & Send Alert</button>
+      <button class="linkButton" onclick="sendEmergencyOtp()">Resend OTP</button>
+    </div>
+
+    <p id="emergencyStatus" class="status"></p>
+
+    <div id="emergencySuccess" class="successCard hidden">
+      <div class="successIcon">🚨</div>
+      <h2>Emergency alert sent</h2>
+      <p id="emergencySuccessText"></p>
+    </div>
+
+    <button class="linkButton" onclick="closeEmergencySOS()">Close</button>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
