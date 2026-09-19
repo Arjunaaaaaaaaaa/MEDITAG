@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<link rel="stylesheet" href="style.css">
+<title>MediTag v3</title>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><b>M</b><div><strong>MediTag</strong><small>Secure patient identity</small></div></div>
+  <span id="network" class="pill">Checking...</span>
+</header>
+
+<main>
+<!-- LANDING -->
+<section id="landing" class="view active">
+  <div class="hero">
+    <div>
+      <span class="eyebrow">MEDI TAG v3</span>
+      <h1>Medical information, available when it matters.</h1>
+      <p>A simple patient identity for secure access to medical information, QR-based identification, clinician updates and Tamil care summaries.</p>
+    </div>
+    <div class="heroActions">
+      <button onclick="showView('patientLogin')">👤 Patient Login</button>
+      <button class="secondary" onclick="showView('doctorLogin')">👨‍⚕️ Doctor Login</button>
+      <button class="outline" onclick="showView('registration')">➕ New Patient Registration</button>
+    </div>
+  </div>
+  <div class="featureGrid">
+    <div class="card"><span class="featureIcon">🔐</span><h3>Patient-controlled access</h3><p>Patients can view their profile, QR and access history. Medical information is not editable after registration.</p></div>
+    <div class="card"><span class="featureIcon">📷</span><h3>QR identity</h3><p>The QR contains only a MediTag patient token, never the medical record itself.</p></div>
+    <div class="card"><span class="featureIcon">🩺</span><h3>Doctor updates</h3><p>Authenticated doctors can update clinical information and consultation notes with an audit trail.</p></div>
+    <div class="card"><span class="featureIcon">🔊</span><h3>Tamil care summary</h3><p>Patients can listen to doctor advice in Tamil using browser speech.</p></div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section id="registration" class="view">
+  <div class="pageHead"><div><span class="eyebrow">NEW PATIENT</span><h1>Create your MediTag profile</h1><p>Medical information becomes read-only for the patient after registration.</p></div><button class="secondary" onclick="showView('landing')">← Back</button></div>
+  <form id="registrationForm" class="card grid">
+    <label>Name<input id="regName" required></label>
+    <label>Date of birth<input id="regDob" type="date" required></label>
+    <label>Blood group<select id="regBlood" required><option value="">Select</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label>
+    <label>Phone<input id="regPhone" type="tel" placeholder="+91 98765 43210" required></label>
+    <label>Emergency contact<input id="regEmergency" required placeholder="Name — phone number"></label>
+    <label class="wide">Medical conditions<textarea id="regConditions" rows="3" placeholder="e.g. Asthma"></textarea></label>
+    <label class="wide">Allergies<textarea id="regAllergies" rows="3" placeholder="e.g. Penicillin"></textarea></label>
+    <label class="wide">Current medications<textarea id="regMedications" rows="3" placeholder="e.g. Salbutamol inhaler"></textarea></label>
+    <label class="wide">Medical history<textarea id="regHistory" rows="4" placeholder="Previous diagnoses, surgeries, relevant history..."></textarea></label>
+    <div class="wide consent"><b>Read-only medical profile:</b> after registration, the patient cannot edit the medical information. Authenticated doctors can update clinical information.</div>
+    <div class="wide actions"><button type="submit">Register</button></div>
+  </form>
+  <div id="registrationSuccess" class="successCard hidden">
+    <div class="successIcon">✓</div>
+    <h2>Your MediTag profile has been created.</h2>
+    <p id="createdPatientId"></p>
+    <div class="actions centerActions">
+      <button onclick="showView('patientLogin')">Go to Patient Login</button>
+      <button class="secondary" onclick="showView('landing')">Back to Home</button>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT LOGIN -->
+<section id="patientLogin" class="view">
+  <div class="authWrap">
+    <div class="authCard card">
+      <span class="eyebrow">PATIENT LOGIN</span><h1>Access your MediTag</h1>
+      <p class="muted">Use your registered phone number or Patient ID.</p>
+      <label>Phone / Patient ID<input id="patientLoginId" placeholder="e.g. MT-1001 or +91 98765 43210"></label>
+      <label>Patient OTP<input id="patientOtp" inputmode="numeric" maxlength="6" placeholder="Demo OTP: 111222"></label>
+      <button class="full" onclick="patientLogin()">Verify & Continue</button>
+      <p id="patientLoginStatus" class="status"></p>
+      <button class="linkButton" onclick="showView('registration')">New patient? Register</button>
+      <button class="linkButton" onclick="showView('landing')">← Back</button>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTOR LOGIN -->
+<section id="doctorLogin" class="view">
+  <div class="authWrap">
+    <div class="authCard card">
+      <span class="eyebrow">DOCTOR LOGIN</span><h1>Clinician verification</h1>
+      <p class="muted">This is a separate doctor authentication flow.</p>
+      <label>Doctor ID<input id="doctorLoginId" value="DR-KUMAR-001"></label>
+      <label>Doctor password / verification<input id="doctorPassword" type="password" placeholder="Demo: MEDI123"></label>
+      <label>Doctor OTP<input id="doctorOtp" inputmode="numeric" maxlength="6" placeholder="Demo OTP: 333444"></label>
+      <button class="full" onclick="doctorLogin()">Verify & Continue</button>
+      <p id="doctorLoginStatus" class="status"></p>
+      <button class="linkButton" onclick="showView('landing')">← Back</button>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT DASHBOARD -->
+<section id="patientDashboard" class="view">
+  <div class="dashHead">
+    <div><span class="eyebrow">PATIENT DASHBOARD</span><h1 id="patientWelcome">Welcome</h1><p id="patientMeta" class="muted"></p></div>
+    <button class="secondary" onclick="logout()">Log out</button>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="patientProfile">My Profile</button>
+    <button class="tab" data-tab="patientQR">My QR</button>
+    <button class="tab" data-tab="patientAccess">Access History</button>
+    <button class="tab" data-tab="patientCare">Doctor Updates & Tamil</button>
+  </nav>
+
+  <section id="patientProfile" class="panel active">
+    <div class="heading"><div><span class="eyebrow">READ ONLY</span><h2>Complete profile</h2></div><span class="pill">🔒 Medical information locked</span></div>
+    <div id="patientProfileCard" class="card profileRead"></div>
+    <p class="note">There is intentionally no Edit button for medical information. Clinical changes are made by authenticated doctors.</p>
+  </section>
+
+  <section id="patientQR" class="panel">
+    <div class="heading"><div><span class="eyebrow">MEDI TAG IDENTITY</span><h2>Your QR</h2></div></div>
+    <div class="two">
+      <div class="card center">
+        <div class="tagtitle">MEDI<strong>TAG</strong></div>
+        <p class="tiny">SCAN TO FIND PATIENT TOKEN</p>
+        <div id="patientQRBox"></div>
+        <p id="patientToken" class="mono"></p>
+        <div class="buttonRow"><button onclick="downloadPatientQR()">⬇ Download QR</button><button class="secondary" onclick="printPatientQR()">🖨 Print QR</button></div>
+      </div>
+      <div class="card"><h3>What is inside the QR?</h3><p>Only your MediTag token is encoded. Your medical conditions, allergies, medications and history are <b>not</b> stored inside the QR.</p><div class="future">Doctor scans → token is read → authenticated doctor session finds the patient → patient record opens.</div></div>
+    </div>
+  </section>
+
+  <section id="patientAccess" class="panel">
+    <div class="heading"><div><span class="eyebrow">TRANSPARENCY</span><h2>Who accessed your record?</h2></div></div>
+    <div id="patientLogs" class="card"></div>
+  </section>
+
+  <section id="patientCare" class="panel">
+    <div class="heading"><div><span class="eyebrow">DOCTOR-UPdated INFORMATION</span><h2>Clinical updates & Tamil care summary</h2></div></div>
+    <div id="patientUpdates" class="card"></div>
+    <div class="card tamilCard">
+      <span class="eyebrow">TAMIL CARE SUMMARY</span>
+      <h3 id="careEnglish">No doctor advice has been added yet.</h3>
+      <p id="careTamil" class="tamilText">மருத்துவர் ஆலோசனை இன்னும் சேர்க்கப்படவில்லை.</p>
+      <button id="speakTamil" onclick="speakTamil()" disabled>🔊 Listen in Tamil</button>
+    </div>
+  </section>
+</section>
+
+<!-- DOCTOR DASHBOARD -->
+<section id="doctorDashboard" class="view">
+  <div class="dashHead">
+    <div><span class="eyebrow">DOCTOR DASHBOARD</span><h1>Welcome, <span id="doctorWelcome">Doctor</span></h1><p class="muted">Authenticated clinician session</p></div>
+    <button class="secondary" onclick="logout()">Log out</button>
+  </div>
+
+  <div class="scannerLayout">
+    <div class="card scannerCard">
+      <span class="eyebrow">SCAN MEDI TAG QR</span>
+      <h2>Find a patient</h2>
+      <div id="reader"></div>
+      <div id="scannerStatus" class="scannerStatus">Camera scanner is ready.</div>
+      <div class="scannerButtons"><button id="startCamera">📷 Start Camera</button><button id="stopCamera" class="secondary" disabled>■ Stop</button></div>
+      <label class="uploadButton">🖼 Upload QR Image<input id="qrFile" type="file" accept="image/*" hidden></label>
+      <div class="manualScan">
+        <label>Demo token / QR text<input id="manualToken" placeholder="MEDI-TAG:patient-token"></label>
+        <button class="secondary" onclick="lookupManualToken()">Find Patient</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Doctor workflow</h3>
+      <div class="miniFlow">
+        <div>1 <span>Scan MediTag QR</span></div>
+        <div>2 <span>Patient found by token</span></div>
+        <div>3 <span>Authenticated doctor session</span></div>
+        <div>4 <span>Open patient record</span></div>
+        <div>5 <span>Update clinical information</span></div>
+        <div>6 <span>Save audit event</span></div>
+      </div>
+      <div id="doctorScanResult" class="scanResult hidden"></div>
+    </div>
+  </div>
+
+  <div id="doctorRecord" class="hidden doctorRecordWrap">
+    <div class="heading"><div><span class="eyebrow">PATIENT RECORD</span><h2 id="doctorPatientName"></h2><p id="doctorPatientId" class="muted"></p></div></div>
+    <div class="two">
+      <div class="card">
+        <h3>Medical record</h3>
+        <div id="doctorRecordRead"></div>
+      </div>
+      <form id="doctorUpdateForm" class="card">
+        <h3>Update clinical information</h3>
+        <label>Medical conditions<textarea id="docConditions" rows="3"></textarea></label>
+        <label>Allergies<textarea id="docAllergies" rows="3"></textarea></label>
+        <label>Current medications<textarea id="docMedications" rows="3"></textarea></label>
+        <label>Consultation notes<textarea id="docNotes" rows="4" placeholder="What was discussed or advised?"></textarea></label>
+        <label>Doctor's advice<textarea id="docAdvice" rows="4" placeholder="Example: Take the prescribed medicine after food twice daily. Drink sufficient water and return for review after 7 days."></textarea></label>
+        <div class="tamilPreview"><b>Tamil care summary:</b><span id="tamilPreviewText">Enter advice to generate the Tamil version.</span></div>
+        <button type="submit">💾 Save changes</button>
+        <p class="note">Every saved update is added to the patient's access/update history.</p>
+      </form>
+    </div>
+    <div class="card auditCard"><h3>Recent record activity</h3><div id="doctorAudit"></div></div>
+  </div>
+</section>
+</main>
+<footer>MediTag v3 prototype • Synthetic demo data • Not for real clinical use</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="app.js"></script>
+</body>
+</html>

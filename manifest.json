@@ -1,0 +1,8 @@
+{
+  "name":"MediTag — Patient Voice Kit",
+  "short_name":"MediTag",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#f3f7f7",
+  "theme_color":"#0f766e"
+}
